@@ -1,0 +1,200 @@
+:root {
+    /* Colors - Dark Mode Default */
+    --color-bg: #121212;
+    --color-surface: #1e1e1e;
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #a0a0a0;
+    --color-accent: #00bcd4; /* Cyan/Teal for a digital feel */
+    --color-accent-hover: #00acc1;
+    --color-border: #333333;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 8rem;
+
+    /* Typography */
+    --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-family-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    
+    --font-size-base: 16px;
+    --font-size-h1: 2.5rem;
+    --font-size-h2: 1.75rem;
+    --font-size-h3: 1.25rem;
+    
+    /* Layout */
+    --container-width: 1200px;
+    --border-radius: 4px;
+}
+
+/* Reset & Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-family-sans);
+    line-height: 1.6;
+    font-size: var(--font-size-base);
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Layout Utilities */
+.container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-sm);
+}
+
+section {
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Typography */
+h1, h2, h3 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-sm);
+}
+
+h1 {
+    font-size: var(--font-size-h1);
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: var(--font-size-h2);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-xs);
+    margin-top: var(--spacing-md);
+}
+
+h3 {
+    font-size: var(--font-size-h3);
+    color: var(--color-text-primary);
+}
+
+p {
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-secondary);
+}
+
+/* Hero Section */
+.hero {
+    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    text-align: left;
+}
+
+.hero-subtitle {
+    font-family: var(--font-family-mono);
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-sm);
+    display: block;
+}
+
+.hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.btn {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--border-radius);
+    color: var(--color-accent);
+    font-family: var(--font-family-mono);
+    font-size: 0.9rem;
+}
+
+.btn:hover {
+    background-color: rgba(0, 188, 212, 0.1);
+    text-decoration: none;
+}
+
+/* Grid Layout for Features */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-accent);
+}
+
+.card-title {
+    margin-bottom: var(--spacing-xs);
+}
+
+.card-meta {
+    font-family: var(--font-family-mono);
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+    display: block;
+}
+
+/* Footer */
+footer {
+    border-top: 1px solid var(--color-border);
+    padding: var(--spacing-md) 0;
+    margin-top: var(--spacing-xl);
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    :root {
+        --font-size-h1: 2rem;
+        --spacing-xl: 4rem;
+    }
+    
+    .hero-links {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
