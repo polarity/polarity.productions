@@ -148,13 +148,30 @@ p {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
-    padding: var(--spacing-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .card:hover {
     transform: translateY(-2px);
     border-color: var(--color-accent);
+}
+
+.card-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-bottom: 1px solid var(--color-border);
+    background-color: #171a20;
+}
+
+.card-content {
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .card-title {
@@ -167,6 +184,10 @@ p {
     color: var(--color-text-secondary);
     margin-bottom: var(--spacing-sm);
     display: block;
+}
+
+.card-content p {
+    margin-bottom: 0;
 }
 
 /* Footer */
