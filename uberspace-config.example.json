@@ -7,6 +7,7 @@
   "phpVersion": "8.5",
   "remoteWebroot": "/var/www/virtual/poliprod/html",
   "dispenserDatabase": "poliprod_dispenser",
+  "shortlinkApiToken": "",
   "domains": [
     "polarity.productions"
   ],

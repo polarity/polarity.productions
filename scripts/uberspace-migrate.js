@@ -81,6 +81,7 @@ function loadMigrationConfig () {
     phpVersion: String(process.env.UBERSPACE_PHP_VERSION || migrationConfig.phpVersion || '8.5'),
     remoteWebroot: normalizeRemotePath(migrationConfig.remoteWebroot || `/var/www/virtual/${username}/html`),
     dispenserDatabase: process.env.DISPENSER_DATABASE || migrationConfig.dispenserDatabase || `${username}_dispenser`,
+    shortlinkApiToken: process.env.SHORTLINK_API_TOKEN || migrationConfig.shortlinkApiToken || '',
     domains: Array.isArray(migrationConfig.domains) ? migrationConfig.domains : ['polarity.productions']
   }
 
@@ -253,6 +254,13 @@ function renderDispenserConfig (config, mysqlPassword) {
     user: config.username,
     password: mysqlPassword
   }
+  local.shortener = {
+    enabled: true,
+    mode: 'api',
+    base_url: 'https://polarity.me/go.php?c=',
+    api_url: 'https://polarity.me/shortlink-api.php',
+    api_token: config.shortlinkApiToken || 'SHORTLINK_API_TOKEN_NOT_CONFIGURED'
+  }
   local.patreon = {
     ...(local.patreon || {}),
     redirect_uri: 'https://polarity.productions/dispenser/callback.php'
@@ -318,6 +326,9 @@ async function runSetup (client, config) {
 }
 
 async function runDispenserConfig (client, config) {
+  if (!isDryRun && !config.shortlinkApiToken) {
+    throw new Error('Missing shortlinkApiToken in .buildt/uberspace-config.json or SHORTLINK_API_TOKEN env var.')
+  }
   const password = isDryRun ? 'MYSQL_PASSWORD_FROM_UBERSPACE_MY_CNF' : await remoteMysqlPassword(client)
   const remotePath = path.posix.join(config.remoteWebroot, 'dispenser', 'config.php')
   const contents = renderDispenserConfig(config, password)

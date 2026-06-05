@@ -96,11 +96,14 @@ Upload generated Dispenser runtime config:
 npm run uberspace:dispenser:config
 ```
 
-The generated config keeps the existing local secrets but changes:
+The generated config keeps the existing local OAuth/admin secrets but changes:
 
 - DB host/user/password/database for Uberspace
+- shortener mode to API mode at `https://polarity.me/shortlink-api.php`
 - Patreon callback to `https://polarity.productions/dispenser/callback.php`
 - Google callback to `https://polarity.productions/dispenser/callback_google.php`
+
+Set `shortlinkApiToken` in `.buildt/uberspace-config.json` or `SHORTLINK_API_TOKEN` in the environment before uploading. It must match `SHORTLINK_API_TOKEN` in the `polarity-blog` runtime config.
 
 Update those callback URLs in the Patreon and Google provider dashboards before final production validation.
 
