@@ -1,0 +1,23 @@
+{
+  "name": "polarity-productions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static Polarity Productions hub and Uberspace deployment tooling.",
+  "scripts": {
+    "assemble": "node scripts/assemble-site.js",
+    "deploy:sftp": "node scripts/deploy-sftp.js",
+    "deploy:sftp:dry-run": "node scripts/deploy-sftp.js --dry-run",
+    "uberspace:check": "node scripts/uberspace-migrate.js check",
+    "uberspace:setup": "node scripts/uberspace-migrate.js setup",
+    "uberspace:dispenser:config": "node scripts/uberspace-migrate.js dispenser:config",
+    "uberspace:dispenser:uploads": "node scripts/uberspace-migrate.js dispenser:uploads",
+    "uberspace:db:export": "php scripts/export-dispenser-db-pdo.php",
+    "uberspace:db:import": "node scripts/uberspace-migrate.js db:import",
+    "uberspace:db:counts": "node scripts/uberspace-migrate.js db:counts",
+    "uberspace:permissions": "node scripts/uberspace-migrate.js permissions",
+    "uberspace:validate": "node scripts/validate-uberspace.js"
+  },
+  "dependencies": {
+    "ssh2": "^1.17.0"
+  }
+}

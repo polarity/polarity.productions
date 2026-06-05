@@ -1,0 +1,15 @@
+{
+  "host": "adhara.uberspace.de",
+  "port": 22,
+  "username": "poliprod",
+  "privateKeyPath": "~/.ssh/id_ed25519",
+  "passphrase": "",
+  "phpVersion": "8.5",
+  "remoteWebroot": "/var/www/virtual/poliprod/html",
+  "dispenserDatabase": "poliprod_dispenser",
+  "domains": [
+    "polarity.productions"
+  ],
+  "stagingBaseUrl": "https://poliprod.uber.space",
+  "productionBaseUrl": "https://polarity.productions"
+}

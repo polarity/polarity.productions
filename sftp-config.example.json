@@ -1,0 +1,8 @@
+{
+  "host": "adhara.uberspace.de",
+  "port": 22,
+  "username": "poliprod",
+  "privateKeyPath": "~/.ssh/id_ed25519",
+  "passphrase": "",
+  "remotePath": "/var/www/virtual/poliprod/html"
+}
