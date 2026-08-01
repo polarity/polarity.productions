@@ -46,12 +46,27 @@ Copy-Item uberspace-config.example.json .buildt/uberspace-config.json
 
 Adjust `privateKeyPath`, `passphrase`, or use `password` in the ignored config if needed.
 
-## Assemble And Deploy
+## Normal Deploys
+
+After migration, this repo should deploy only the main `polarity.productions` landing page:
+
+```powershell
+npm run deploy:sftp:dry-run
+npm run deploy:sftp
+```
+
+These commands assemble only `index.html` and `assets/**`, then use `.buildt/sftp-deploy-manifest-root.json`. They do not manage or delete subproject folders such as `/dispenser/`, `/spectrogram/`, `/spectrum/`, `/vectorscope/`, `/polarity-res/`, `/polarity-md/`, or `/polarity-sc/`.
+
+Deploy those projects from their own repositories or tooling.
+
+## Full Migration Deploy
+
+Use this only for the initial migration or disaster recovery. It assembles every known project into one webroot and uses the full-tree manifest `.buildt/sftp-deploy-manifest.json`.
 
 Build the combined public webroot:
 
 ```powershell
-npm run assemble
+npm run assemble:all
 ```
 
 This creates `public/` with:
@@ -70,8 +85,8 @@ Excluded from deploy: repo metadata, `node_modules`, local configs, Dispenser `c
 Preview and deploy:
 
 ```powershell
-npm run deploy:sftp:dry-run
-npm run deploy:sftp
+npm run deploy:sftp:all:dry-run
+npm run deploy:sftp:all
 ```
 
 Before the first deploy to Uberspace, delete `.buildt/sftp-deploy-manifest.json` if it exists from a different target.

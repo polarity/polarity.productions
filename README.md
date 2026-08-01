@@ -45,6 +45,24 @@ This is a static site with no build step.
 1. Clone the repository.
 2. Open `index.html` in your browser or serve with a simple static server (e.g., `python -m http.server`, `php -S localhost:8000`, or VS Code Live Server).
 
+## Deployment
+
+Normal deploys from this repo manage only the main landing page:
+
+```powershell
+npm run deploy:sftp:dry-run
+npm run deploy:sftp
+```
+
+That stages and uploads only `index.html` and `assets/**` using a root-only SFTP manifest. It will not delete or overwrite `/dispenser/`, `/spectrogram/`, `/spectrum/`, `/vectorscope/`, `/polarity-res/`, `/polarity-md/`, or `/polarity-sc/`.
+
+The full multi-site deploy is kept only for migration/recovery:
+
+```powershell
+npm run deploy:sftp:all:dry-run
+npm run deploy:sftp:all
+```
+
 ## Design Guidelines
 
 - **Visuals**: Minimal layout, strong typography, "workshop" feel.

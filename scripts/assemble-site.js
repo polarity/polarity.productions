@@ -6,6 +6,8 @@ const path = require('path')
 const ROOT = path.resolve(__dirname, '..')
 const GITHUB_ROOT = path.resolve(ROOT, '..')
 const PUBLIC_DIR = path.join(ROOT, 'public')
+const args = process.argv.slice(2)
+const includeAllSites = args.includes('--all')
 
 const SOURCES = [
   { name: 'root', source: ROOT, target: '' },
@@ -126,7 +128,13 @@ function main () {
   fs.rmSync(PUBLIC_DIR, { recursive: true, force: true })
   fs.mkdirSync(PUBLIC_DIR, { recursive: true })
 
-  for (const source of SOURCES) {
+  const sources = includeAllSites
+    ? SOURCES
+    : SOURCES.filter((source) => source.name === 'root')
+
+  console.log(includeAllSites ? 'Assemble mode: all sites' : 'Assemble mode: main site only')
+
+  for (const source of sources) {
     const targetDir = path.join(PUBLIC_DIR, source.target)
     const stats = { files: 0, bytes: 0 }
     copyTree(source.source, targetDir, source.name, stats)

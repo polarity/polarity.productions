@@ -9,9 +9,14 @@ const { Client } = require('ssh2')
 const ROOT = path.resolve(__dirname, '..')
 const PUBLIC_DIR = path.join(ROOT, 'public')
 const BUILD_DIR = path.join(ROOT, '.buildt')
-const MANIFEST_PATH = path.join(BUILD_DIR, 'sftp-deploy-manifest.json')
 const SFTP_CONFIG_PATH = path.join(BUILD_DIR, 'sftp-config.json')
-const isDryRun = process.argv.slice(2).includes('--dry-run')
+const args = process.argv.slice(2)
+const isDryRun = args.includes('--dry-run')
+const deployScope = args.includes('--all') ? 'all' : 'root'
+const MANIFEST_PATH = path.join(
+  BUILD_DIR,
+  deployScope === 'all' ? 'sftp-deploy-manifest.json' : 'sftp-deploy-manifest-root.json'
+)
 
 function formatError (err) {
   return err?.message || String(err)
@@ -114,6 +119,11 @@ function walkFiles (dirPath) {
   return files
 }
 
+function isInDeployScope (relativePath) {
+  if (deployScope === 'all') return true
+  return relativePath === 'index.html' || relativePath.startsWith('assets/')
+}
+
 function hashFile (filePath) {
   return new Promise((resolve, reject) => {
     const hash = crypto.createHash('sha256')
@@ -132,6 +142,9 @@ async function buildManifest () {
   const manifest = {}
   for (const filePath of walkFiles(PUBLIC_DIR)) {
     const relativePath = normalizeRelativePath(path.relative(PUBLIC_DIR, filePath))
+    if (!isInDeployScope(relativePath)) {
+      continue
+    }
     const stats = fs.statSync(filePath)
     manifest[relativePath] = {
       path: relativePath,
@@ -336,6 +349,7 @@ async function main () {
   const { uploads, deletes } = diffManifest(previousManifest, currentManifest)
 
   console.log(isDryRun ? 'SFTP deploy dry-run' : 'SFTP deploy')
+  console.log(`Scope: ${deployScope}`)
   console.log(`Local root: ${path.relative(ROOT, PUBLIC_DIR)}`)
   console.log(`Remote path: ${config.remotePath}`)
   console.log(`Uploads: ${uploads.length}`)

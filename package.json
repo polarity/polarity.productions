@@ -5,8 +5,11 @@
   "description": "Static Polarity Productions hub and Uberspace deployment tooling.",
   "scripts": {
     "assemble": "node scripts/assemble-site.js",
-    "deploy:sftp": "node scripts/deploy-sftp.js",
-    "deploy:sftp:dry-run": "node scripts/deploy-sftp.js --dry-run",
+    "assemble:all": "node scripts/assemble-site.js --all",
+    "deploy:sftp": "npm run assemble && node scripts/deploy-sftp.js",
+    "deploy:sftp:dry-run": "npm run assemble && node scripts/deploy-sftp.js --dry-run",
+    "deploy:sftp:all": "npm run assemble:all && node scripts/deploy-sftp.js --all",
+    "deploy:sftp:all:dry-run": "npm run assemble:all && node scripts/deploy-sftp.js --all --dry-run",
     "uberspace:check": "node scripts/uberspace-migrate.js check",
     "uberspace:setup": "node scripts/uberspace-migrate.js setup",
     "uberspace:dispenser:config": "node scripts/uberspace-migrate.js dispenser:config",
