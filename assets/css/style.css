@@ -184,6 +184,11 @@ p {
     background-color: #171a20;
 }
 
+.card-video {
+    display: block;
+    object-fit: cover;
+}
+
 .card-content {
     padding: var(--spacing-md);
     display: flex;
